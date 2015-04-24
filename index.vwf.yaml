@@ -111,6 +111,7 @@ children:
           playerDivId: "jquery_jplayer_1"
           containerSize: [640, 480]
           playerSize: [640, 480]
+          containerPosition: [ 100, 100 ]
   hud:
     includes: source/hud/marsGameHud.vwf
   mainMenu:
