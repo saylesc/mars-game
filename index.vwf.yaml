@@ -109,8 +109,8 @@ children:
           preload: "auto" 
           containerDivId: "jp_container_1"
           playerDivId: "jquery_jplayer_1"
-          containerSize: [1024, 768]
-          playerSize: [1024, 768]
+          containerSize: [640, 480]
+          playerSize: [640, 480]
   hud:
     includes: source/hud/marsGameHud.vwf
   mainMenu:
