@@ -17,6 +17,7 @@ extends: actionProto.vwf
 
 properties:
   videoSource:
+  videoManager:
 
 scripts:
 - source: action_playVideo.js

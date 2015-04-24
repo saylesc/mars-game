@@ -17,14 +17,20 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    if ( !params || ( params.length !== 1 ) ) {
+    //if ( !params || ( params.length !== 2 ) ) {
+    //NXM: TODO: If the length isn't 1 or 2, fail and print an error. 
+    if ( !params || ( params.length < 1 ) ) {
         this.logger.errorx( "onGenerated", 
-                            "This action requires one argument: " +
+                            "This action requires at least one argument: " +
                             "the source of the video." );
         return false;
     }
 
     this.videoSource = params[ 0 ];
+
+    if( params.length > 1 ) { 
+        this.videoManager = params[ 1 ];
+    }
 
     // TODO: can we validate the source?  Nathan?
 
@@ -32,7 +38,7 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    this.scene.playVideo( this.videoSource );
+    this.scene.playVideo( this.videoSource, this.videoManager );
 }
 
 //@ sourceURL=source/triggers/actions/action_playVideo.js
