@@ -16,7 +16,7 @@ var playingVideo;
 var supportedFormats = [".webm", ".mp4"];
 document.onkeypress = removeVideoOnEvent;
 
-function playVideo( src ) {
+function playVideo( src, videoManager ) {
     if ( src ) {
         playingVideo = src;
         var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];

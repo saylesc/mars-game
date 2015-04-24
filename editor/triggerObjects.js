@@ -432,7 +432,9 @@ function getActions() {
             "requiredArgs": [
                 { "Video": "video" }
             ],
-            "optionalArgs": [],
+            "optionalArgs": [
+                { "VideoManager": "string" }
+            ],
             "repeatedArgs": []
         },
         "setCinematicCameraView": {

@@ -363,13 +363,13 @@ this.stopBlinkTab = function( nodeName ) {
     }
 }
 
-this.playVideo = function( src ) {
+this.playVideo = function( src, videoManager ) {
     // var id = getVideoIdFromSrc( src );
     // if ( isNaN( id ) || id < 0 || id >= videos.length ) {
     //     id = loadVideo( src );
     // }
     $( "#transitionScreen" ).fadeIn( function(){ 
-        playVideo( src );
+        playVideo( src, videoManager );
     });
 }
 
