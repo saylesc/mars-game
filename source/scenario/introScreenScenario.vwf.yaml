@@ -31,6 +31,9 @@ children:
           actions:
           - playVideo:
             - intro_cinematic
+            - "videoManager"
+          - playVideo:
+            - small 
             - "videoManager2"
 
         succeedOnIntroDone:
