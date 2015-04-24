@@ -109,9 +109,18 @@ children:
           preload: "auto" 
           containerDivId: "jp_container_1"
           playerDivId: "jquery_jplayer_1"
-          containerSize: [640, 480]
-          playerSize: [640, 480]
+          containerSize: [ 640, 480 ]
+          playerSize: [ 640, 480 ]
           containerPosition: [ 100, 100 ]
+      videoManager2:
+        extends: http://vwf.example.com/jplayer/videoManager.vwf
+        properties:
+          preload: "auto" 
+          containerDivId: "jp_container_2"
+          playerDivId: "jquery_jplayer_2"
+          containerSize: [ 640, 480 ]
+          playerSize: [ 640, 480 ]
+          containerPosition: [ 740, 580 ]
   hud:
     includes: source/hud/marsGameHud.vwf
   mainMenu:
