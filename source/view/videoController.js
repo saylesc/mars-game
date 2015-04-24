@@ -19,7 +19,8 @@ document.onkeypress = removeVideoOnEvent;
 function playVideo( src, videoManager ) {
     if ( src ) {
         playingVideo = src;
-        var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
+        //var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
+        var videoManagerID = vwf_view.kernel.find( "", "//" + videoManager )[ 0 ];
         vwf_view.kernel.callMethod( videoManagerID, "show" );
 
         var videoURLBase = "assets/video/" + src;
