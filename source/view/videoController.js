@@ -14,6 +14,7 @@
 
 var playingVideo;
 var supportedFormats = [".webm", ".mp4"];
+var mediaManagerName = "mediaManager";
 
 //TODO: Make document.onkeypress go to another function, which loops 
 //over all jPlayer instances and hides them. 
@@ -47,6 +48,11 @@ function playVideo( src, videoManager ) {
 
 function removeAllVideos( event ){ 
     //TODO: Look at children of mediaManager, and remove each of them. 
+    var videoInstanceIDList = vwf_view.kernel.find( "", "//" + mediaManagerName );   
+    for ( var i = 0; i < videoInstanceIDList.length; i++ ) {
+        var videoManagerID = videoInstanceIDList[ i ]; 
+          
+    }
 }
 
 function removeVideoOnEvent( videoManagerName ) {
