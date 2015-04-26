@@ -14,12 +14,18 @@
 
 var playingVideo;
 var supportedFormats = [".webm", ".mp4"];
-document.onkeypress = removeVideoOnEvent;
 
+//TODO: Make document.onkeypress go to another function, which loops 
+//over all jPlayer instances and hides them. 
+//We can do this by looping over all children of mediaManager
+
+//(Commented out for now)
+//document.onkeypress = removeVideoOnEvent;
+
+//TODO: Rename "videoManager" to "videoManagerName"
 function playVideo( src, videoManager ) {
     if ( src ) {
         playingVideo = src;
-        //var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
         var videoManagerID = vwf_view.kernel.find( "", "//" + videoManager )[ 0 ];
         vwf_view.kernel.callMethod( videoManagerID, "show" );
 
@@ -30,7 +36,6 @@ function playVideo( src, videoManager ) {
                 return group1 + "/assets" 
             } );
         
-        //var fileList = [ redactedURLBase + ".webm", redactedURLBase + ".mp4" ]
         var fileList = [];
         for( var i = 0; i < supportedFormats.length; i++ ){
             fileList.push( redactedURLBase + supportedFormats[i] );
@@ -40,7 +45,11 @@ function playVideo( src, videoManager ) {
     }
 }
 
-function removeVideoOnEvent( event ) {
+function removeAllVideos( event ){ 
+    //TODO: Look at children of mediaManager, and remove each of them. 
+}
+
+function removeVideoOnEvent( videoManagerName ) {
     if ( !playingVideo ) {
         return;
     }
@@ -49,18 +58,26 @@ function removeVideoOnEvent( event ) {
     if ( event && event.type === "keypress" && event.which !== 32 ) {
         return;
     }
-    var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
-
+    //var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
+    var videoManagerID = vwf_view.kernel.find( "", "//" + videoManagerName )[ 0 ];
     vwf_view.kernel.callMethod( videoManagerID, "clearMedia" );
+
     if( playingVideo ){
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ playingVideo ] );
+        //TODO: This needs to be generalized such that it is per-video instance.
         playingVideo = undefined;
     }
 }
 
-function removeVideo() {
-    var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
-    vwf_view.kernel.callMethod( videoManagerID, "hide" );
+function removeVideo( videoManagerName ) {
+    //var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
+    //vwf_view.kernel.callMethod( videoManagerID, "hide" );
+    if( videoManagerName ) {
+        var videoManagerID = vwf_view.kernel.find( "", "//" + videoManagerName )[ 0 ];
+        vwf_view.kernel.callMethod( videoManagerID, "hide" );
+    } else {
+        console.log("Removing nonexistent video!");
+    }
 }
 
 //@ sourceURL=source/videoController.js

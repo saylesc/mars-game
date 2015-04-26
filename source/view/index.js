@@ -206,7 +206,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "videoPlayed":
                 $( "#transitionScreen" ).fadeOut( function() {
-                    removeVideo();
+                    //removeVideo();
+                    removeVideo( eventArgs[0] );
                 } );
                 break;
 
@@ -243,7 +244,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         }
 
         if( eventName === "videoEnded" ){
-            removeVideoOnEvent();
+            //TODO: The 0th argument should now be the name of the video in question.
+            //Pass it to this function.
+            
+            var videoManagerName = eventArgs[ 0 ];
+            if( videoManagerName ) {
+                removeVideoOnEvent( videoManagerName );
+            } else {
+                //TODO: Update this to be more descriptive? Use the logger? 
+                console.log("Expected name of video manager / jPlayer video instance!"); 
+            }
         }
 
         if ( eventName === "startedTimer" ) {
@@ -447,7 +457,7 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function setUpView() {
-    // HACK: right now, the JPlayer div is always in the way unless we get rid 
+    // NXM HACK: right now, the JPlayer div is always in the way unless we get rid 
     //  of it, so...
     removeVideo();
     

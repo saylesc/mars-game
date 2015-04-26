@@ -17,6 +17,7 @@ children:
           - stopAllSounds:
           - playVideo:
             - end_cinematic
+            - "videoManager"
 
         succeedOnIntroDone:
           group: successOrFailure
