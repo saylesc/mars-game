@@ -599,6 +599,8 @@ children:
     includes: source/scenario/scenario_dummy.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
+  twoVideoScenario:
+    includes: source/scenario/twoVideoScenario.vwf
   scenario1a:
     includes: source/scenario/scenario1a.vwf
   scenario1b:

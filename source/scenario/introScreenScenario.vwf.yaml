@@ -17,8 +17,8 @@ extends: ../scenario/scenario.vwf
 properties:
   scenarioName: introScreenScenario
 
-  nextScenarioPath: "scenario1a"
-  blockly: source/scenario/blockly/scenario1.xml
+  nextScenarioPath: "scenario_dummy"
+  blockly: source/scenario/blockly/scenario_dummy.xml
 
 children:
   triggerManager:
@@ -32,9 +32,6 @@ children:
           - playVideo:
             - intro_cinematic
             - "videoManager"
-          - playVideo:
-            - small 
-            - "videoManager2"
 
         succeedOnIntroDone:
           group: successOrFailure
