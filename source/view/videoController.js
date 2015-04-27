@@ -51,7 +51,7 @@ function removeAllVideos( event ){
     var videoInstanceIDList = vwf_view.kernel.find( "", "//" + mediaManagerName );   
     for ( var i = 0; i < videoInstanceIDList.length; i++ ) {
         var videoManagerID = videoInstanceIDList[ i ]; 
-          
+        //remove video here?           
     }
 }
 
@@ -76,8 +76,8 @@ function removeVideoOnEvent( videoManagerName ) {
 }
 
 function removeVideo( videoManagerName ) {
-    //var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
-    //vwf_view.kernel.callMethod( videoManagerID, "hide" );
+    var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
+    vwf_view.kernel.callMethod( videoManagerID, "hide" );
     if( videoManagerName ) {
         var videoManagerID = vwf_view.kernel.find( "", "//" + videoManagerName )[ 0 ];
         vwf_view.kernel.callMethod( videoManagerID, "hide" );
