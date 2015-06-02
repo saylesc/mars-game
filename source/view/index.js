@@ -329,6 +329,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setBriefInfo( title, content, imageSrc );
                 break;
 
+            case "studyStartPopupOpened":
+                showStudyStartPopup();
+                break;
+
+            case "studyEndPopupOpened":
+                showStudyEndPopup();
+                break;
+
+
         } 
     } else {
         // scenario events

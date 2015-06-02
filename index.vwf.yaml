@@ -87,8 +87,8 @@ methods:
   addAxisOffset:
   removeAxisOffset:
   createNaniteSystem:
-  deleteNaniteSystem:
-events:
+  deleteNaniteSystem:  openStudyStartPopup:
+  openStudyEndPopup:events:
   gameStarted:
   scenarioReset:
   scenarioChanged:
@@ -120,6 +120,10 @@ events:
   missionBriefOpened:
   missionBriefClosed:
   loadedMissionBrief:
+  studyStartPopupOpened:
+  studyStartPopupClosed:
+  studyEndPopupOpened:
+  studyEndPopupfClosed:
 children:
   naniteSystems:
     extends: http://vwf.example.com/node3.vwf
