@@ -18,7 +18,7 @@ var endPopupContent = document.getElementById( "sep_content" );
 var endPopupImage = document.getElementById( "sep_image" );
 var defaultImage = "../../assets/images/briefBG.png";
 
-endPopupDOM.onclick = hideendPopup;
+endPopupDOM.onclick = hideStudyEndPopup;
 
 function showStudyEndPopup() {
 

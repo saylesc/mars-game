@@ -20,6 +20,8 @@ limitations under the License.
 <script type="text/javascript" src="source/view/blocks.js"></script>
 <script type="text/javascript" src="source/view/index.js"></script>
 <script type="text/javascript" src="source/view/missionBriefs.js"></script>
+<script type="text/javascript" src="source/view/studyStartPopup.js"></script>
+<script type="text/javascript" src="source/view/studyEndPopup.js"></script>
 <script type="text/javascript" src="source/view/mainMenu.js"></script>
 <script type="text/javascript" src="source/view/navigation.js"></script>
 <script type="text/javascript" src="source/view/popupManager.js"></script>
@@ -33,6 +35,8 @@ limitations under the License.
 <link type="text/css" rel="stylesheet" href="source/view/index.css"></link>
 <link type="text/css" rel="stylesheet" href="source/view/mainMenu.css"></link>
 <link type="text/css" rel="stylesheet" href="source/view/missionBrief.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/studyStartPopup.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/studyEndPopup.css"></link>
 <link type="text/css" rel="stylesheet" href="source/view/jquery-resizable.css"></link>
 <link type="text/css" rel="stylesheet" href="minimal_jplayer_style.css"></link>
 
@@ -77,6 +81,50 @@ limitations under the License.
         <div id="mb_title"></div>
         <div id="mb_content"></div>
         <div id="mb_continue">Click Anywhere to Continue.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Study Start Window -->
+<div id="ssp_screen" style="display: none;">
+  <div id="ssp_align">
+    <div id="ssp_wrapper">
+      <div id="ssp_image" class="inline"></div>
+      <div id="ssp_main" class="inline">
+        <div id="ssp_title">Welcome to the Mars Game!</div>
+        <div id="ssp_content">
+          <div id="ssp_contenttext">Hello! Thanks for checking out Mars Game! Before you play we’ll need your parent/guardian to read the text below and then we’ll need you to read/electronically sign an assent form on the next page. Please get your parent/guardian now, have them read the text below and then hit the ‘next’ button.”
+          </div>
+          <p><p>
+          <div id="ssp_scroll" style="height:200px;width:100%;border:1px solid #ccc;overflow:auto;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum erat quis tellus ornare, id maximus sem pulvinar. Phasellus id velit vitae magna efficitur tristique. Proin sollicitudin mi facilisis congue placerat. Donec condimentum tristique lorem, ac dictum risus volutpat ac. Suspendisse sagittis finibus pharetra. Nullam nec eleifend lectus, nec tincidunt risus. Praesent lacinia placerat leo, sed blandit tortor suscipit quis. Sed luctus, nibh nec feugiat facilisis, nulla enim maximus nunc, non commodo enim risus ut enim.
+
+          Etiam lorem nunc, fermentum vitae porttitor vitae, dictum ac odio. Nam volutpat enim urna, quis egestas dolor sagittis non. Suspendisse lobortis, enim euismod pretium gravida, neque erat ullamcorper ipsum, nec condimentum lectus justo id arcu. Mauris vitae consequat sapien, ac feugiat purus. Mauris vitae fringilla quam, eu facilisis nunc. In hac habitasse platea dictumst. Pellentesque venenatis mauris nec varius porttitor. Aliquam vel libero at velit laoreet fringilla nec ut sem. Aliquam vehicula erat augue, ac placerat mauris dignissim sit amet. Vestibulum consequat gravida diam, a maximus massa posuere nec. Nullam urna ante, aliquet in aliquet sit amet, ultricies quis nisi.
+          </div>
+
+          <div id="ssp_name" style="display:none;width:100%;">
+          <p><p>
+          I agree to the above and by entering my full name effectively provide my electronic signature.
+          <p><p>
+          <form>
+            <input type="text" name="fullname">
+          </form>
+          </div>
+        </div>
+        <div id="ssp_continue">Ok - I showed my parents.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Study End Window -->
+<div id="sep_screen" style="display: none;">
+  <div id="sep_align">
+    <div id="sep_wrapper">
+      <div id="sep_image" class="inline"></div>
+      <div id="sep_main" class="inline">
+        <div id="sep_title">Thanks for playing!</div>
+        <div id="sep_content">Survey Monkey Link Goes Here</div>
       </div>
     </div>
   </div>
