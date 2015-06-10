@@ -1416,6 +1416,7 @@ function tickClock() {
 function updateTimerWindow() {
     timerScenarioName.innerHTML = clockScenario;
     scenarioTimes[ clockScenario ] = clockElapsedTime;
+    vwf_view.kernel.setProperty( appID, "activeScenarioTime", clockElapsedTime );
     timerScenarioElapsedTime.innerHTML = formatTime( clockElapsedTime );
     if ( timerDetailButton.className === "open" ) {
         updateTimerDetailList();

@@ -24,6 +24,9 @@ this.initialize = function() {
         this.future( 0 ).registerScenarioSucceededListener();
         this.future( 0 ).registerScenarioFailedListener();
         this.future( 0 ).registerScenarioResetListener();
+        this.future( 0 ).registerScenarioTilesListener();
+        this.future( 0 ).registerScenarioGraphListener();
+        this.future( 0 ).registerScenarioBriefListener();
     }
 }
 
@@ -62,6 +65,28 @@ this.registerScenarioResetListener = function() {
     } ).bind( this );
 }
 
+this.registerTilesListener = function() {
+    var scene = this.find( "/" )[ 0 ];
+    scene.displayTiles = ( function( value ) {
+        this.broadcastEvent( 'toggledTiles', value );
+    } ).bind( this );
+}
+
+this.registerGraphListener = function() {
+    var scene = this.find( "/" )[ 0 ];
+    scene.displayGraph = ( function( value ) {
+        this.broadcastEvent( 'toggledGraph', value );
+    } ).bind( this );
+}
+
+this.registerBriefListener = function() {
+    var scene = this.find( "/" )[ 0 ];
+    scene.openMissionBrief = ( function( value ) {
+        this.broadcastEvent( 'openedMissionBrief', value );
+    } ).bind( this );
+}
+
+
 this.broadcastEvent = function( event, value ) {
     var params = [ event, value ];
     this.createRequest ( 'logEvent', params );
@@ -71,12 +96,13 @@ this.createRequest = function( type, params ) {
     
     var scene = this.find( "/" )[ 0 ];
     
-    var playerId = scene.playerId;
-    var version = scene.version;
-    
     var pathArray = window.location.pathname.split( '/' );
+
+    //var playerId = scene.playerId;
+    var version = scene.version;
     var vwfSession = pathArray[ pathArray.length-2 ];
-    
+    var playerID = vwfSession;
+
     var xhr = new XMLHttpRequest();
             
     if ( type === 'logEvent' ) {
@@ -86,11 +112,13 @@ this.createRequest = function( type, params ) {
         }
         var event = params[ 0 ];
         var value = params[ 1 ];
-        
+        var scenarioTime = scene.activeScenarioTime;
+        var scenario = scene.activeScenarioPath;
+
         xhr.open( "POST", this.logEventUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-                event + "$&value="+value+"$&version="+version);
+                event + "$&value="+value+"$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
         
     }
 }

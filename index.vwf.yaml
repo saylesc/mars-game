@@ -23,6 +23,7 @@ properties:
   backgroundColor: [ 225, 145, 75 ]
   userObject: null
   blockly_autoClose: false
+  activeScenarioTime: 0
   activeScenarioPath:
     set: |
       this.setScenario( value );
@@ -175,8 +176,8 @@ children:
       - source: source/cinematicCameraController.js
   soundManager:
     includes: source/marsGameSound.vwf
-  # instrumentationManager:
-  #   includes: source/instrumentationManager.vwf
+  instrumentationManager:
+    includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
   triggerGroupManager:
