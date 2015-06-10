@@ -28,7 +28,7 @@ properties:
     set: |
       this.setScenario( value );
   playerId: "test"
-  version: "Development 6-7-15"
+  version: "Development 6-7-15" #no slashes please
   sceneBlackboard: {}
   roverSignalValue: 0
   roverHeadingValue: 0

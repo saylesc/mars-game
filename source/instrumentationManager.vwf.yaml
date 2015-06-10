@@ -28,6 +28,7 @@ methods:
   registerTilesListener:
   registerGraphListener:
   registerBriefListener:
+  registerBlocklyListeners:
   broadcastEvent:
   createRequest:
   getRequest:

@@ -27,6 +27,7 @@ this.initialize = function() {
         this.future( 0 ).registerTilesListener();
         this.future( 0 ).registerGraphListener();
         this.future( 0 ).registerBriefListener();
+        this.future( 0 ).registerBlocklyListeners();
     }
 }
 
@@ -84,6 +85,25 @@ this.registerBriefListener = function() {
     scene.openMissionBrief = ( function( value ) {
         this.broadcastEvent( 'openedMissionBrief', value );
     } ).bind( this );
+}
+
+this.registerBlocklyListeners = function() {
+    var scene = this.find( "/" )[ 0 ];
+
+    scene.player.rover.blocklyStarted = ( function( ) {
+        this.broadcastEvent( 'mannyBlocklyStarted', '' );
+    } ).bind( this );
+    scene.player.rover2.blocklyStarted = ( function( ) {
+        this.broadcastEvent( 'perryBlocklyStarted', '' );
+    } ).bind( this );
+    scene.player.rover3.blocklyStarted = ( function( ) {
+        this.broadcastEvent( 'rosieBlocklyStarted', '');
+    } ).bind( this );
+
+    scene.blocklyContentChanged = ( function( ) {
+        this.broadcastEvent( 'blocklyContentChanged', '' );
+    } ).bind( this );
+
 }
 
 
