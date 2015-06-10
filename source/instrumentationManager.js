@@ -24,9 +24,9 @@ this.initialize = function() {
         this.future( 0 ).registerScenarioSucceededListener();
         this.future( 0 ).registerScenarioFailedListener();
         this.future( 0 ).registerScenarioResetListener();
-        this.future( 0 ).registerScenarioTilesListener();
-        this.future( 0 ).registerScenarioGraphListener();
-        this.future( 0 ).registerScenarioBriefListener();
+        this.future( 0 ).registerTilesListener();
+        this.future( 0 ).registerGraphListener();
+        this.future( 0 ).registerBriefListener();
     }
 }
 
@@ -101,7 +101,7 @@ this.createRequest = function( type, params ) {
     //var playerId = scene.playerId;
     var version = scene.version;
     var vwfSession = pathArray[ pathArray.length-2 ];
-    var playerID = vwfSession;
+    var playerId = vwfSession;
 
     var xhr = new XMLHttpRequest();
             
