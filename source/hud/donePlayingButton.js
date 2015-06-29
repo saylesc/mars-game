@@ -19,11 +19,7 @@ this.draw = function( context, position ) {
 }
 
 this.onClick = function() {
-    var visible = this.scene.blockly_interfaceVisible;
-    if ( !this.scene.blockly_activeNodeID ) {
-        this.scene.blockly_activeNodeID = this.scene.player.rover.id;
-    }
-    this.scene.blockly_interfaceVisible = !visible;
+    this.scene.displayEndPopup();
 }
 
 //@ sourceURL=source/hud/blocklyButton.js

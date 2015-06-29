@@ -28,6 +28,8 @@ properties:
     set: |
       this.setScenario( value );
   playerId: "test"
+  playerName: "unknown"
+  playerHashedName: "none"
   version: "Development 6-7-15" #no slashes please
   sceneBlackboard: {}
   roverSignalValue: 0

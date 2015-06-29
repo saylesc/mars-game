@@ -23,7 +23,7 @@ var startPopupButton = document.getElementById( "ssp_continue" );
 
 var defaultImage = "../../assets/images/briefBG.png";
 var agreementPage = 1;
-
+var appID = vwf_view.kernel.application();
 startPopupButton.onclick = advancePopup;
 
 function showStudyStartPopup() {
@@ -34,7 +34,7 @@ function showStudyStartPopup() {
 function hideStudyStartPopup() {
 
     startPopupDOM.style.display = "none";
-    vwf_view.kernel.fireEvent( "startPopupClosed" );
+    vwf_view.kernel.fireEvent( appID, "startPopupClosed" );
 }
 
 function advancePopup() {
@@ -54,10 +54,15 @@ function advancePopup() {
     } else {
         agreementPage = 1;
         setContent( 1 );
+        var name = startPopupTextInput.value;
+        vwf_view.kernel.setProperty( appID, "studentName", name );
+        vwf_view.kernel.setProperty( appID, "studentHashedName", name );
+        vwf_view.kernel.callMethod( appID, "logPlayerInfo", name );
         startPopupDOM.style.display = "none";
         startPopupTextInput.style.display = "none";
         startPopupScroll.style.display = "inherit";
-        vwf_view.kernel.fireEvent( "startPopupClosed" );
+        vwf_view.kernel.fireEvent( appID, "startPopupClosed" );
+
         setScrollContent( 1 );
         startPopupButton.innerHTML = 'Ok I showed my parents.';
     }

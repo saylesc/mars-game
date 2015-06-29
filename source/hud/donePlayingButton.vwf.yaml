@@ -19,8 +19,8 @@ implements:
 properties:
   images:
     icon: "assets/images/hud/menu_program.png"
-  width: 64
-  height: 64
+  width: 128
+  height: 128
   visible: true
   enabled: true
   alignH: right
@@ -36,4 +36,4 @@ methods:
 events:
   onClick:
 scripts:
-  - source: blocklyButton.js
+  - source: donePlayingButton.js

@@ -18,11 +18,21 @@ var endPopupContent = document.getElementById( "sep_content" );
 var endPopupImage = document.getElementById( "sep_image" );
 var defaultImage = "../../assets/images/briefBG.png";
 
+var appID = vwf_view.kernel.application();
+
 endPopupDOM.onclick = hideStudyEndPopup;
 
 function showStudyEndPopup() {
 
+    var pathArray = window.location.pathname.split( '/' );
+
+    //var playerId = scene.playerId;
+    var version = vwf_view.kernel.getProperty( appID, 'version' );
+    var playerHashedName = vwf_view.kernel.getProperty( appID, 'playerHashedName' );
+    var vwfSession = pathArray[ pathArray.length-2 ];
+
     endPopupDOM.style.display = "block";
+    endPopupContent.innerHTML = 'https://www.surveymonkey.com/s/X3LVQ89?sessionID='+vwfSession+'&currentVersion='+version+'&hashedID='+playerHashedName+'';
 }
 
 function hideStudyEndPopup() {
@@ -33,8 +43,8 @@ function hideStudyEndPopup() {
 
 function setEndPopupInfo( title, content, imageSrc ) {
 
-    endPopupTitle.innerHTML = title;
-    endPopupContent.innerHTML = content;
+    endPopupTitle.innerHTML = 'Thanks for playing!';
+    endPopupContent.innerHTML = '';
     // TODO: Allow each brief to display it's own image to the left of the brief content.
     // imageSrc = imageSrc || defaultImage;
     // endPopupImage.style.backgroundImage = "url(\"" + imageSrc + "\")";

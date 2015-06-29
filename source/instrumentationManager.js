@@ -112,6 +112,14 @@ this.broadcastEvent = function( event, value ) {
     this.createRequest ( 'logEvent', params );
 }
 
+this.logPlayerInfo = function() {
+    this.createRequest ( 'logPlayerInfo' );
+}
+
+this.logPlayerInfoName = function( name ) {
+    this.createRequest ( 'logPlayerInfo', [ name ] );
+}
+
 this.createRequest = function( type, params ) {
     
     var scene = this.find( "/" )[ 0 ];
@@ -122,9 +130,11 @@ this.createRequest = function( type, params ) {
     var version = scene.version;
     var vwfSession = pathArray[ pathArray.length-2 ];
     var playerId = vwfSession;
-
-    var xhr = new XMLHttpRequest();
-            
+    var playerName = scene.playerName;
+    var playerSaltedName = '436zpym' + scene.playerName + 'df53cat';
+    var playerHashedName = playerSaltedName.hashLarge();
+    scene.playerHashedName = playerHashedName;
+    
     if ( type === 'logEvent' ) {
         if ( !params || ( params.length !== 2 ) ) {
             self.logger.warnx( "createRequest", "The logEvent request takes 2 parameters:" +
@@ -135,10 +145,33 @@ this.createRequest = function( type, params ) {
         var scenarioTime = scene.activeScenarioTime;
         var scenario = scene.activeScenarioPath;
 
+        var xhr = new XMLHttpRequest();
         xhr.open( "POST", this.logEventUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
                 event + "$&value="+value+"$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
+        
+    } else if ( type === 'logPlayerInfo' ) {
+        var scenarioTime = scene.activeScenarioTime;
+        var scenario = scene.activeScenarioPath;
+
+        if ( params ) {
+            playerName = params[ 0 ];
+            playerSaltedName = '436zpym' + playerName + 'df53cat';
+            playerHashedName = playerSaltedName.hashLarge();
+            scene.playerHashedName = playerHashedName;
+        }
+          
+
+        var xhr = new XMLHttpRequest();
+        xhr.open( "POST", this.logAssentUrl, true );
+        xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhr.send("vwf_session=" + vwfSession + "&student_name=" + playerName + "&student_hash=" + playerHash + "$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
+        
+        var xhr2 = new XMLHttpRequest();
+        xhr2.open( "POST", this.logPlayerHashUrl, true );
+        xhr2.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhr2.send("vwf_session=" + vwfSession + "&student_name=" + playerName + "&student_hash=" + playerHash + "$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
         
     }
 }
@@ -175,6 +208,16 @@ this.getRequest = function( type, params ) {
         xhr.send( "player_id="+playerId );
     }
     
+}
+
+String.prototype.hashLarge = function() {
+  var self = this, range = Array(this.length);
+  for(var i = 0; i < this.length; i++) {
+    range[i] = i;
+  }
+  return Array.prototype.reduce.call(range, function(sum, i) {
+    return sum + self.charCodeAt(i);
+  }, 0).toString(16);
 }
 
 //@ sourceURL=source/instrumentationManager.js

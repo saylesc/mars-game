@@ -84,6 +84,11 @@ this.continueGame = function( scenario ) {
     this.activeScenarioPath = scenario;
 }
 
+this.logPlayerInfo = function( name ) {
+    this.instrumentationManager.logPlayerInfo();
+    this.instrumentationmanager.logPlayerInfoName( name );
+}
+
 this.setScenario = function( path ) {
     if ( path ) {
         var scenario = this.find( path )[ 0 ];
