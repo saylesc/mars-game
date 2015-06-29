@@ -25,9 +25,9 @@ properties:
   enabled: true
   alignH: right
   alignV: bottom
-  offsetH: -32
-  offsetV: -30
-  isBlinking: false
+  offsetH: -96
+  offsetV: -96
+  isBlinking: true
   lastBlinkTime: 0
   blinkInterval: 0.25
   blinkDuration: 0.25
