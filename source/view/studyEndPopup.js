@@ -26,11 +26,12 @@ function showStudyEndPopup() {
 
     var appID = vwf_view.kernel.application();
     //var playerId = scene.playerId;
-    var version = vwf_view.kernel.getProperty( appID, 'version' );
+    var version = vwf.getProperty( vwf_view.kernel.application(), 'version' );
 
     console.log(appID);
     console.log(version);
-    var playerHashedName = vwf_view.kernel.getProperty( appID, 'playerHashedName' );
+    var playerHashedName = vwf.getProperty( vwf_view.kernel.application(), 'playerHashedName' );
+    console.log(playerHashedName);
     var vwfSession = pathArray[ pathArray.length-2 ];
 
     var url = 'https://www.surveymonkey.com/s/X3LVQ89?sessionID='+vwfSession+'&currentVersion='+version+'&hashedID='+playerHashedName+'';
