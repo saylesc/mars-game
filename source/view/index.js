@@ -71,6 +71,8 @@ var timerDetailList = document.getElementById( "timerDetailList" );
 var blocklyArea = document.getElementById('blocklyWrapper');
 var blocklyDiv = document.getElementById('blocklyDiv');
 
+var endPopupVisible = false;
+
 var cameraTargetPosition = [ 0, 0, 0 ];
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
@@ -290,7 +292,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "toggledGraph":
                 graphIsVisible = eventArgs[ 0 ];
                 break;
-            
+
             case "enableBlocklyTabs":
                 var tabs = eventArgs[ 0 ];
                 for ( var i = 0; i < tabs.length; i++ ) {
@@ -612,6 +614,8 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
                 "<a target='_blank' href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
                 "Licensed using " + 
                 "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " + version;
+
+            console.log('got')
         } 
     }
 }
@@ -1459,6 +1463,18 @@ function formatTime( time ) {
     formattedTime += m > 0 ? m + "m " : "";
     formattedTime += s.toFixed( 1 ) + "s";
     return formattedTime;
+}
+
+function showStudyEndPopup() {
+    if ( endPopupVisible === false ) {
+        var endPopupDOM = document.getElementById( "sep_screen" );
+        endPopupDOM.style.display = "block";
+        endPopupVisible = true;
+    } else {
+        var endPopupDOM = document.getElementById( "sep_screen" );
+        endPopupDOM.style.display = "none";
+        endPopupVisible = false;
+    }
 }
 
 window.addEventListener( "resize", checkPageZoom );

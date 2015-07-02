@@ -19,14 +19,14 @@ implements:
 properties:
   images:
     icon: "assets/images/hud/menu_done.png"
-  width: 128
-  height: 128
+  width: 64
+  height: 64
   visible: true
   enabled: true
-  alignH: right
+  alignH: center
   alignV: bottom
-  offsetH: -96
-  offsetV: -96
+  offsetH: 10
+  offsetV: -30
   isBlinking: true
   lastBlinkTime: 0
   blinkInterval: 0.25

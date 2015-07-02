@@ -18,27 +18,32 @@ var endPopupContent = document.getElementById( "sep_content" );
 var endPopupImage = document.getElementById( "sep_image" );
 var defaultImage = "../../assets/images/briefBG.png";
 
-var appID = vwf_view.kernel.application();
-
 endPopupDOM.onclick = hideStudyEndPopup;
 
 function showStudyEndPopup() {
 
     var pathArray = window.location.pathname.split( '/' );
 
+    var appID = vwf_view.kernel.application();
     //var playerId = scene.playerId;
     var version = vwf_view.kernel.getProperty( appID, 'version' );
+
+    console.log(appID);
+    console.log(version);
     var playerHashedName = vwf_view.kernel.getProperty( appID, 'playerHashedName' );
     var vwfSession = pathArray[ pathArray.length-2 ];
 
+    var url = 'https://www.surveymonkey.com/s/X3LVQ89?sessionID='+vwfSession+'&currentVersion='+version+'&hashedID='+playerHashedName+'';
     endPopupDOM.style.display = "block";
-    endPopupContent.innerHTML = 'https://www.surveymonkey.com/s/X3LVQ89?sessionID='+vwfSession+'&currentVersion='+version+'&hashedID='+playerHashedName+'';
+    endPopupContent.innerHTML = '<p>Thank you for playing our game! Please note you can return and take the survey below at any time.</p>' + 
+    '<p><a href="'+url+'" target="_blank">COMPLETE SURVEY NOW!</a></p>';
 }
 
 function hideStudyEndPopup() {
 
+    var appID = vwf_view.kernel.application();
     endPopupDOM.style.display = "none";
-    vwf_view.kernel.fireEvent( "endPopupClosed" );
+    vwf_view.kernel.fireEvent( appID, "endPopupClosed" );
 }
 
 function setEndPopupInfo( title, content, imageSrc ) {

@@ -19,7 +19,7 @@ this.draw = function( context, position ) {
 }
 
 this.onClick = function() {
-    this.scene.displayEndPopup();
+    this.scene.openStudyEndPopup();
 }
 
 //@ sourceURL=source/hud/blocklyButton.js
