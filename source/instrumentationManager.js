@@ -152,6 +152,8 @@ this.createRequest = function( type, params ) {
                 event + "$&value="+value+"$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
         
     } else if ( type === 'logPlayerInfo' ) {
+
+        console.log('loggingplayerinfo');
         var scenarioTime = scene.activeScenarioTime;
         var scenario = scene.activeScenarioPath;
 
