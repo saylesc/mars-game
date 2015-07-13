@@ -26,7 +26,7 @@ properties:
   alignH: center
   alignV: bottom
   offsetH: 0
-  offsetV: -30
+  offsetV: -50
   isBlinking: true
   lastBlinkTime: 0
   blinkInterval: 0.25

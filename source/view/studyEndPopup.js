@@ -20,13 +20,17 @@ var defaultImage = "../../assets/images/briefBG.png";
 
 endPopupDOM.onclick = hideStudyEndPopup;
 
+this.initialize = function() {
+
+} 
+
 function showStudyEndPopup() {
 
     var pathArray = window.location.pathname.split( '/' );
 
     var appID = vwf_view.kernel.application();
     //var playerId = scene.playerId;
-    var version = vwf.getProperty( vwf_view.kernel.application(), 'version' );
+    var version = vwf_view.kernel.getProperty( vwf_view.kernel.application(), 'version' );
 
     console.log(appID);
     console.log(version);
@@ -34,7 +38,7 @@ function showStudyEndPopup() {
     console.log(playerHashedName);
     var vwfSession = pathArray[ pathArray.length-2 ];
 
-    var url = 'https://www.surveymonkey.com/s/X3LVQ89?sessionID='+vwfSession+'&currentVersion='+version+'&hashedID='+playerHashedName+'';
+    var url = 'https://www.surveymonkey.com/s/X3LVQ89?currentVersion='+version+'&hashedID='+playerHashedName+'&sessionID='+vwfSession+'';
     endPopupDOM.style.display = "block";
     endPopupContent.innerHTML = '<p>Thank you for playing our game! Please note you can return and take the survey below at any time.</p>' + 
     '<p><a href="'+url+'" target="_blank">COMPLETE SURVEY NOW!</a></p>';

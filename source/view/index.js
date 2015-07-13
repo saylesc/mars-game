@@ -1112,14 +1112,18 @@ function indicateBlock( blockID ) {
 
 window.onkeypress = function( event ) {
     var pauseScreen;
+
     if ( event.which === 112 ) {
-        pauseScreen = document.getElementById( "pauseScreen" );
-        if ( pauseScreen.isOpen ){
-            closePauseMenu();
-        } else {// if ( renderMode === RENDER_GAME ) {
-            openPauseMenu();
-        }
+        // event.preventDefault();
+        // pauseScreen = document.getElementById( "pauseScreen" );
+        // if ( pauseScreen.isOpen ){
+        //     closePauseMenu();
+        // } else {// if ( renderMode === RENDER_GAME ) {
+        //     openPauseMenu();
+        // }
     }
+
+    event.stopPropagation();
 }
 
 function initializePauseMenu() {

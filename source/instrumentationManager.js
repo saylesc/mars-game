@@ -106,17 +106,12 @@ this.registerBlocklyListeners = function() {
 
 }
 
-
 this.broadcastEvent = function( event, value ) {
     var params = [ event, value ];
     this.createRequest ( 'logEvent', params );
 }
 
-this.logPlayerInfo = function() {
-    this.createRequest ( 'logPlayerInfo' );
-}
-
-this.logPlayerInfoName = function( name ) {
+this.logPlayerInfo = function( name ) {
     this.createRequest ( 'logPlayerInfo', [ name ] );
 }
 
@@ -153,7 +148,6 @@ this.createRequest = function( type, params ) {
         
     } else if ( type === 'logPlayerInfo' ) {
 
-        console.log('loggingplayerinfo');
         var scenarioTime = scene.activeScenarioTime;
         var scenario = scene.activeScenarioPath;
 
@@ -168,12 +162,12 @@ this.createRequest = function( type, params ) {
         var xhr = new XMLHttpRequest();
         xhr.open( "POST", this.logAssentUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-        xhr.send("vwf_session=" + vwfSession + "&student_name=" + playerName + "&student_hash=" + playerHash + "$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
+        xhr.send("vwf_session=" + vwfSession + "&student_name=" + playerName + "&student_hash=" + playerHashedName + "$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
         
         var xhr2 = new XMLHttpRequest();
         xhr2.open( "POST", this.logPlayerHashUrl, true );
         xhr2.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-        xhr2.send("vwf_session=" + vwfSession + "&student_name=" + playerName + "&student_hash=" + playerHash + "$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
+        xhr2.send("vwf_session=" + vwfSession + "&student_name=" + playerName + "&student_hash=" + playerHashedName + "$&version="+version+"$&scenarioTime="+scenarioTime+"$&scenario="+scenario);
         
     }
 }
