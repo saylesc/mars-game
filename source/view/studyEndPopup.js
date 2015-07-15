@@ -30,7 +30,7 @@ function showStudyEndPopup() {
 
     var appID = vwf_view.kernel.application();
     //var playerId = scene.playerId;
-    var version = vwf_view.kernel.getProperty( vwf_view.kernel.application(), 'version' );
+    var version = vwf.getProperty( vwf_view.kernel.application(), 'version' );
 
     console.log(appID);
     console.log(version);
