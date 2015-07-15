@@ -127,6 +127,7 @@ this.createRequest = function( type, params ) {
     var vwfSession = pathArray[ pathArray.length-2 ];
     var playerId = vwfSession;
     var playerName = scene.playerName;
+    console.log('scenename:'+playerName);
     var playerSaltedName = '436zpym' + scene.playerName + 'df53cat';
     var playerHashedName = playerSaltedName.hashLarge();
     scene.playerHashedName = playerHashedName;
@@ -153,7 +154,8 @@ this.createRequest = function( type, params ) {
         var scenario = scene.activeScenarioPath;
 
         if ( params ) {
-            playerName = params[ 0 ];
+            playerName = params;
+            console.log('paramsname:'+playerName);
             playerSaltedName = '436zpym' + playerName + 'df53cat';
             playerHashedName = playerSaltedName.hashLarge();
             scene.playerHashedName = playerHashedName;
