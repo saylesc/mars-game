@@ -113,6 +113,7 @@ this.broadcastEvent = function( event, value ) {
 
 this.logPlayerInfo = function( name ) {
     this.createRequest ( 'logPlayerInfo', [ name ] );
+    this.createRequest ( 'logPlayerInfo' );
 }
 
 this.createRequest = function( type, params ) {

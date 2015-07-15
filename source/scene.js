@@ -85,7 +85,7 @@ this.continueGame = function( scenario ) {
 }
 
 this.logPlayerInfo = function( params ) {
-    this.instrumentationManager.logPlayerInfo( params[ 0 ] );
+    this.instrumentationManager.logPlayerInfo( params );
 }
 
 this.setScenario = function( path ) {
