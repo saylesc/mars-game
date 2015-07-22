@@ -139,6 +139,14 @@ properties:
     # arguments: objectName, active
     setPickupActive: "source/triggers/actions/action_setPickupActive.vwf"
 
+    # open the ongoing study's start popup / terms and agreements
+    # arguments: none
+    openStudyStartPopup: "source/triggers/actions/action_openStudyStartPopup.vwf"
+
+    # open the ongoing study's end popup / survey monkey link
+    # arguments: none
+    openStudyEndPopup: "source/triggers/actions/action_openStudyEndPopup.vwf"
+
     # TODO: These are the old start state functions - add comments for them.
     setProperty: "source/triggers/actions/action_setProperty.vwf"
     callMethod: "source/triggers/actions/action_callMethod.vwf"

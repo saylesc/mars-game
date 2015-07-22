@@ -519,4 +519,12 @@ this.removeAxisOffset = function( coordinate ) {
     return tilePosition;
 }
 
+this.openStudyStartPopup = function() {
+    this.studyStartPopupOpened();
+}
+
+this.openStudyEndPopup = function() {
+    this.studyEndPopupOpened();
+}
+
 //@ sourceURL=source/scene.js

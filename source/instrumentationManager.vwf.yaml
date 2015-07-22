@@ -15,9 +15,11 @@
 ---
 extends: http://vwf.example.com/node3.vwf
 properties:
-  logEventUrl: http://pcvm4-1.instageni.nysernet.org/simple.php
-  logBlocklyUrl: http://pcvm4-1.instageni.nysernet.org/blockly.php
-  getPlayerStateUrl: http://pcvm4-1.instageni.nysernet.org/state.php
+  logEventUrl: https://pcvm4-1.instageni.nysernet.org/simple.php
+  logBlocklyUrl: https://pcvm4-1.instageni.nysernet.org/blockly.php
+  getPlayerStateUrl: https://pcvm4-1.instageni.nysernet.org/state.php
+  logAssentUrl: https://pcvm4-1.instageni.nysernet.org/assent.php
+  logPlayerHashUrl: https://pcvm4-1.instageni.nysernet.org/studenthash.php
   enabled: true
 methods:
   registerGameStartedListener:
@@ -25,9 +27,15 @@ methods:
   registerScenarioSucceededListener:
   registerScenarioFailedListener:
   registerScenarioResetListener:
+  registerTilesListener:
+  registerGraphListener:
+  registerBriefListener:
+  registerBlocklyListeners:
   broadcastEvent:
   createRequest:
   getRequest:
+  logPlayerInfo:
+  logPlayerInfoName:
 
 scripts:
  - source: instrumentationManager.js

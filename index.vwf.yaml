@@ -30,7 +30,9 @@ properties:
     set: |
       this.setScenario( value );
   playerId: "test"
-  version: "Development"
+  playerName: "none"
+  hashedPlayerName: "none"
+  version: "Development 7-22-15"
   sceneBlackboard: {}
   roverSignalValue: 0
   roverHeadingValue: 0
@@ -176,8 +178,8 @@ children:
       - source: source/cinematicCameraController.js
   soundManager:
     includes: source/marsGameSound.vwf
-  # instrumentationManager:
-  #   includes: source/instrumentationManager.vwf
+  instrumentationManager:
+    includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
   triggerGroupManager:

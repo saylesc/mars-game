@@ -123,6 +123,10 @@ children:
             - enabled
             - false
           - setProperty:
+            - topDownButton
+            - enabled
+            - true
+          - setProperty:
             - firstPersonButton
             - enabled
             - false

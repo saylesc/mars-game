@@ -71,6 +71,8 @@ var timerDetailList = document.getElementById( "timerDetailList" );
 var blocklyArea = document.getElementById('blocklyWrapper');
 var blocklyDiv = document.getElementById('blocklyDiv');
 
+var endPopupVisible = false;
+
 var cameraTargetPosition = [ 0, 0, 0 ];
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
@@ -131,7 +133,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStopped":
-                //vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
+                vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
                 // startBlocklyButton.className = "";
                 // var indicator = document.getElementById( "blocklyIndicator" );
                 // var count = document.getElementById( "blocklyIndicatorCount" );
@@ -224,9 +226,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
                     var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
 
-                    //vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
                 } else {
-                    //vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
                 }
 
                 if ( blockID ) {
@@ -292,7 +294,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "toggledGraph":
                 graphIsVisible = eventArgs[ 0 ];
                 break;
-            
+
             case "enableBlocklyTabs":
                 var tabs = eventArgs[ 0 ];
                 for ( var i = 0; i < tabs.length; i++ ) {
@@ -334,6 +336,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "selectedRover":
                 updateCameraDistance( eventArgs[ 0 ] );
                 break;
+
+            case "studyStartPopupOpened":
+                showStudyStartPopup();
+                break;
+
+            case "studyEndPopupOpened":
+                showStudyEndPopup();
+                break;
+
 
         } 
     } else {
@@ -609,7 +620,11 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
                 "<a target='_blank' href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
                 "Licensed using " + 
                 "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " + version;
-        } 
+
+            return propertyValue;
+        } else {
+            return propertyValue;
+        }
     }
 }
 
@@ -625,6 +640,8 @@ function setUpView() {
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
     loadScenarioList();
+    var startPopupDOM = document.getElementById( "ssp_screen" );
+    startPopupDOM.style.display = "block";
 
 }
 
@@ -1102,14 +1119,18 @@ function indicateBlock( blockID ) {
 
 window.onkeypress = function( event ) {
     var pauseScreen;
+
     if ( event.which === 112 ) {
-        pauseScreen = document.getElementById( "pauseScreen" );
-        if ( pauseScreen.isOpen ){
-            closePauseMenu();
-        } else {// if ( renderMode === RENDER_GAME ) {
-            openPauseMenu();
-        }
+        // event.preventDefault();
+        // pauseScreen = document.getElementById( "pauseScreen" );
+        // if ( pauseScreen.isOpen ){
+        //     closePauseMenu();
+        // } else {// if ( renderMode === RENDER_GAME ) {
+        //     openPauseMenu();
+        // }
     }
+
+    event.stopPropagation();
 }
 
 function initializePauseMenu() {
@@ -1412,6 +1433,7 @@ function tickClock() {
 function updateTimerWindow() {
     timerScenarioName.innerHTML = clockScenario;
     scenarioTimes[ clockScenario ] = clockElapsedTime;
+    vwf_view.kernel.setProperty( appID, "activeScenarioTime", clockElapsedTime );
     timerScenarioElapsedTime.innerHTML = formatTime( clockElapsedTime );
     if ( timerDetailButton.className === "open" ) {
         updateTimerDetailList();
@@ -1454,6 +1476,18 @@ function formatTime( time ) {
     formattedTime += m > 0 ? m + "m " : "";
     formattedTime += s.toFixed( 1 ) + "s";
     return formattedTime;
+}
+
+function showStudyEndPopup() {
+    if ( endPopupVisible === false ) {
+        var endPopupDOM = document.getElementById( "sep_screen" );
+        endPopupDOM.style.display = "block";
+        endPopupVisible = true;
+    } else {
+        var endPopupDOM = document.getElementById( "sep_screen" );
+        endPopupDOM.style.display = "none";
+        endPopupVisible = false;
+    }
 }
 
 window.addEventListener( "resize", checkPageZoom );

@@ -109,6 +109,10 @@ children:
             - enabled
             - false
           - setProperty:
+            - tilesButton
+            - enabled
+            - true
+          - setProperty:
             - blocklyButton
             - enabled
             - false
