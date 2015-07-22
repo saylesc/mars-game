@@ -28,9 +28,9 @@
 
 #sep_wrapper {
     position: absolute;
-    top: 15%;
+    top: 5%;
     width: 750px;
-    height: 600px;
+    height: 500px;
     font-size: 0px; /* Remove spacing between divs */
     border: 2px solid rgb( 210, 235, 255 );
     border-top-right-radius: 8px;
@@ -45,7 +45,7 @@
     background-position: center;
     background-repeat: no-repeat;
     width: 150px;
-    height: 600px;
+    height: 500px;
     border-top-left-radius: 32px;
     border-bottom-left-radius: 8px;
 }
@@ -53,7 +53,7 @@
 #sep_main {
     background-color: rgb( 25, 25, 25 );
     width: 600px;
-    height: 600px;
+    height: 500px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 32px;
 }
@@ -76,7 +76,7 @@
     text-align: justify;
     color: rgb( 255, 245, 175 );
     width: 576px;
-    height: 496px;
+    height: 396px;
     padding: 12px;
 }
 
