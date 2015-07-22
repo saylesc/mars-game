@@ -30,7 +30,7 @@ properties:
   playerId: "test"
   playerName: "unknown"
   playerHashedName: "none"
-  version: "Development 7-12-15" #no slashes please
+  version: "Development 7-22-15" #no slashes please
   sceneBlackboard: {}
   roverSignalValue: 0
   roverHeadingValue: 0
