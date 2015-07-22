@@ -585,6 +585,14 @@ this.removeAxisOffset = function( coordinate ) {
     return tilePosition;
 }
 
+this.openStudyStartPopup = function() {
+    this.studyStartPopupOpened();
+}
+
+this.openStudyEndPopup = function() {
+    this.studyEndPopupOpened();
+}
+
 this.calloutTile = function( coordinate ) {
     var material = this.environment.terrain.material;
     material.bCallout$ = true;
