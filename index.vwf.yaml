@@ -230,7 +230,7 @@ children:
               gridColor: 0xFFDDAA
               gridAxes: [ 0, 0 ]
               gridVisible: 0
-              tilesVisible: 0
+              tilesVisible: 1
               tileColor: 0x3A4A40
               triangle: []
       environmentObjects:
