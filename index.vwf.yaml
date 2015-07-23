@@ -32,7 +32,7 @@ properties:
   playerId: "test"
   playerName: "none"
   hashedPlayerName: "none"
-  version: "Development 7-22-15"
+  version: "Dev 7-23-15 (PTI)"
   sceneBlackboard: {}
   roverSignalValue: 0
   roverHeadingValue: 0
@@ -230,7 +230,7 @@ children:
               gridColor: 0xFFDDAA
               gridAxes: [ 0, 0 ]
               gridVisible: 0
-              tilesVisible: 1
+              tilesVisible: 0
               tileColor: 0x3A4A40
               triangle: []
       environmentObjects:

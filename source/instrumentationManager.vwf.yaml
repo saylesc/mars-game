@@ -27,9 +27,6 @@ methods:
   registerScenarioSucceededListener:
   registerScenarioFailedListener:
   registerScenarioResetListener:
-  registerTilesListener:
-  registerGraphListener:
-  registerBriefListener:
   registerBlocklyListeners:
   broadcastEvent:
   createRequest:
