@@ -24,9 +24,6 @@ this.initialize = function() {
         this.future( 0 ).registerScenarioSucceededListener();
         this.future( 0 ).registerScenarioFailedListener();
         this.future( 0 ).registerScenarioResetListener();
-        this.future( 0 ).registerTilesListener();
-        this.future( 0 ).registerGraphListener();
-        this.future( 0 ).registerBriefListener();
         this.future( 0 ).registerBlocklyListeners();
     }
 }
@@ -63,27 +60,6 @@ this.registerScenarioResetListener = function() {
     var scene = this.find( "/" )[ 0 ];
     scene.scenarioReset = ( function( scenarioName ) {
         this.broadcastEvent( 'scenarioReset', scenarioName );
-    } ).bind( this );
-}
-
-this.registerTilesListener = function() {
-    var scene = this.find( "/" )[ 0 ];
-    scene.displayTiles = ( function( value ) {
-        this.broadcastEvent( 'toggledTiles', value );
-    } ).bind( this );
-}
-
-this.registerGraphListener = function() {
-    var scene = this.find( "/" )[ 0 ];
-    scene.displayGraph = ( function( value ) {
-        this.broadcastEvent( 'toggledGraph', value );
-    } ).bind( this );
-}
-
-this.registerBriefListener = function() {
-    var scene = this.find( "/" )[ 0 ];
-    scene.openMissionBrief = ( function( value ) {
-        this.broadcastEvent( 'openedMissionBrief', value );
     } ).bind( this );
 }
 
