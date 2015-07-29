@@ -33,7 +33,7 @@ properties:
   playerId: "test"
   playerName: "none"
   hashedPlayerName: "none"
-  version: "Dev 7-23-15 (PTI)"
+  version: "Dev 7-29-15"
   sceneBlackboard: {}
   roverSignalValue: 0
   roverHeadingValue: 0
