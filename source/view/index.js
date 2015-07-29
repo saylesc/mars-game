@@ -563,7 +563,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     break;
                 case "playing":
                     mainMenu.setVisible( false );
-                    versionElem.style.display = "none";
+                    //versionElem.style.display = "none";
                     loggerBox.style.display = "block";
                     timerWindow.style.display = "block";
                     $( "#transitionScreen" ).fadeOut();
@@ -619,7 +619,7 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
             element.innerHTML = "Source available on " +
                 "<a target='_blank' href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
                 "Licensed using " + 
-                "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " + version;
+                "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " + version + " - Have comments?  <a href='mailto:TheMarsGame17@gmail.com?Subject=" + version + "' target='_blank'>Contact Us.</a>";
 
             return propertyValue;
         } else {
