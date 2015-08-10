@@ -94,6 +94,9 @@ methods:
   createNaniteSystem:
   deleteNaniteSystem:
   switchToHelicamView:
+  openStudyStartPopup:
+  openStudyEndPopup:
+  logPlayerInfo:
 events:
   gameStarted:
   scenarioReset:
@@ -127,6 +130,8 @@ events:
   missionBriefOpened:
   missionBriefClosed:
   loadedMissionBrief:
+  studyEndPopupOpened:
+  studyStartPopupOpened:
 children:
   naniteSystems:
     extends: http://vwf.example.com/node3.vwf
