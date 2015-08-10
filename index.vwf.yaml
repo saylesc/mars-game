@@ -96,6 +96,9 @@ methods:
   createNaniteSystem:
   deleteNaniteSystem:
   switchToHelicamView:
+  openStudyStartPopup:
+  openStudyEndPopup:
+  logPlayerInfo:
   calloutTile:
   removeCalloutTile:
 events:
@@ -134,6 +137,8 @@ events:
   loadedMissionBrief:
   cameraMounted:
   targetSwitched:
+  studyEndPopupOpened:
+  studyStartPopupOpened:
 children:
   # naniteSystems:
   #   extends: http://vwf.example.com/node3.vwf
