@@ -97,5 +97,9 @@ children:
   #   includes: source/hud/roverSelector.vwf
   #   properties:
   #     drawOrder: 14
+  donePlayingButton:
+    includes: source/hud/donePlayingButton.vwf
+    properties:
+      drawOrder: 15
 scripts:
   - source: marsGameHud.js
