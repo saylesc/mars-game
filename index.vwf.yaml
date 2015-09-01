@@ -113,6 +113,7 @@ events:
   blockExecuted:
   blocklyCompletedPolygon:
   blocklyFailedPolygon:
+  blocklyCompletedSurvey:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
@@ -132,8 +133,8 @@ events:
   cameraMounted:
   targetSwitched:
 children:
-  naniteSystems:
-    extends: http://vwf.example.com/node3.vwf
+  # naniteSystems:
+  #   extends: http://vwf.example.com/node3.vwf
   mediaManager:
     extends: http://vwf.example.com/node.vwf
     children:
@@ -336,7 +337,7 @@ children:
         type: model/vnd.collada+xml
         properties:
           defaultMount: thirdPerson
-          displayName: "Rover"
+          displayName: "Manny"
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
@@ -460,12 +461,13 @@ children:
         type: model/vnd.collada+xml
         properties:
           defaultMount: thirdPerson
-          displayName: "Rover2"
+          displayName: "Peregrine"
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
           startXML: '<xml></xml>'
           roverRadius: 2
+          allSurveys: []
           surveyArray: []
           sceneNode:
             get: |
@@ -541,7 +543,7 @@ children:
         properties:
           boundingAreaSize: [ 2, 2 ]
           defaultMount: thirdPerson
-          displayName: "Rover3"
+          displayName: "Rosie"
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
@@ -693,6 +695,12 @@ children:
     extends: source/buildings/solarPanel.vwf
   solarPanel4: 
     extends: source/buildings/solarPanel.vwf
+  marsTent1: 
+    extends: source/buildings/tent.vwf
+  greenhouse1:
+    extends: source/buildings/hydroDome.vwf
+  waterWell1:
+    extends: source/buildings/waterVap.vwf
   ########################
   ###   Mission List   ###
   ########################
@@ -768,6 +776,24 @@ children:
     includes: source/scenario/mission4task5.vwf
   Mission4Task6:
     includes: source/scenario/mission4task6.vwf
+  Mission4Task7:
+    includes: source/scenario/mission4task7.vwf
+  Mission4Task8:
+    includes: source/scenario/mission4task8.vwf
+  Mission4Task9:
+    includes: source/scenario/mission4task9.vwf
+  Mission4Task10:
+    includes: source/scenario/mission4task10.vwf
+  Mission4Task11:
+    includes: source/scenario/mission4task11.vwf
+  Mission4Task12:
+    includes: source/scenario/mission4task12.vwf
+  Mission4Task13:
+    includes: source/scenario/mission4task13.vwf
+  Mission4Task14:
+    includes: source/scenario/mission4task14.vwf
+  Mission4Task15:
+    includes: source/scenario/mission4task15.vwf
   # TODO: Use only one graph object. No need for two.
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf

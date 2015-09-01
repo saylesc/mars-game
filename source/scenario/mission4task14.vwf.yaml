@@ -1,0 +1,353 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task14
+  nextScenarioPath: "Mission4Task15"
+
+  startState:
+
+  # objective
+  - setObjective:
+    - "Draw these triangles: [(-7,-17), (-7,-13), (-3,-17)], [(-9,-17), (-9,-13), (-13,-17)], [(-7,-19), (-7,-23), (-3,-190)], [(-9,-19), (-9,-230), (-13,-19)]."
+
+  # blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry14.xml
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+
+  # Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  # Perry
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  # TODO: handle adding him if we jump to this task from elsewhere  
+  # - addToGrid:
+  #   - rover2
+  #   - [ -10, -10 ]
+  - setProperty:
+    - rover2
+    - battery
+    - 1000
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 1000
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 198
+  - setProperty:
+    - rover2
+    - lowRam
+    - 1
+  - selectRover:
+    - rover2
+  - addToGrid:
+    - rover2
+    - [ -35, 7 ]
+
+  # Rosie disabled
+  - setProperty:
+    - rover3
+    - visible
+    - false
+
+  # Grid and disable blocklyLine
+  - setGridAxes:
+    - 19
+    - -24
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+  - clearTriangle:
+  - drawTriangle:
+    - [ -7, -13 ]
+    - [ -7, -17 ]
+    - [ -3, -17 ]
+  - drawTriangle:
+    - [ -9, -17 ]
+    - [ -9, -13 ]
+    - [ -13, -17 ]
+  - drawTriangle:
+    - [ -7, -19 ]
+    - [ -7, -23 ]
+    - [ -3, -19 ]
+  - drawTriangle: 
+    - [ -9, -19 ]
+    - [ -9, -23 ]
+    - [ -13, -19 ]
+
+
+  # Solar panel construction
+
+  - addToGrid:
+    - solarPanel1
+    - [ -23, 20 ]
+  - addToGrid:
+    - solarPanel2
+    - [ -25, 20 ]
+  - addToGrid:
+    - solarPanel3
+    - [ -23, 18 ]
+  - addToGrid:
+    - solarPanel4
+    - [ -25, 18]
+  - addToGrid:
+    - marsTent1
+    - [ -32, 11 ]
+  - addToGrid:
+    - greenhouse1
+    - [ -32, 2 ]
+
+  - setProperty:
+    - solarPanel1
+    - scale
+    - [.4, .4, .4]
+  - setConstructed:
+    - solarPanel1
+    - true
+
+  - setProperty:
+    - solarPanel2
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel2
+    - rotation
+    - [0 ,0 ,1 ,90 ]
+  - setConstructed:
+    - solarPanel2
+    - true
+
+  - setProperty:
+    - solarPanel3
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel3
+    - rotation
+    - [0 ,0 ,1 ,270 ]
+  - setConstructed:
+    - solarPanel3
+    - true
+
+  - setProperty:
+    - solarPanel4
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel4
+    - rotation
+    - [0 ,0 ,1 ,180 ]
+  - setConstructed:
+    - solarPanel4
+    - false
+
+  - setProperty:
+    - cargoPod2
+    - rotation
+    - [0 ,0 ,1 ,-45 ]
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setConstructed:
+    - marsTent1
+    - true
+
+
+  - setProperty:
+    - greenhouse1
+    - visible
+    - false
+
+  - setProperty:
+    - greenhouse1
+    - rotation
+    - [0 ,0 ,1 , 180]
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        openMissionBrief_4_14:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 2
+            - openMissionBrief:
+
+        playStartingVO_4_14:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V32_MANNY
+          - playSound:
+            - TM4V33_MANNY
+          - playSound:
+            - PerryNotDoneGroan
+
+        highlightEndTile_4_14:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -5, -12 ]
+
+        failOnMissingBlock_4_14:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklySurveyFinished:
+              - rover2
+              - [ [ [ -7, -17 ], [ -7, -13 ], [ -3, -17 ] ] , [ [ -9, -17 ], [ -9, -13 ], [ -13, -17 ] ], [ [ -7, -19 ], [ -7, -23 ], [ -3, -19 ] ], [ [ -9, -19 ], [ -9, -23 ], [ -13, -19 ] ] ]
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -29, 7 ]
+            - isBlockMissing:
+              - init_nano_construction
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use the construction block to initiate construction."
+          - playSound:
+            - FCVO2_Rover
+
+        succeedOnTriangle_4_14:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklySurveyFinished:
+              - rover2
+              - [ [ [ -7, -17 ], [ -7, -13 ], [ -3, -17 ] ] , [ [ -9, -17 ], [ -9, -13 ], [ -13, -17 ] ], [ [ -7, -19 ], [ -7, -23 ], [ -3, -19 ] ], [ [ -9, -19 ], [ -9, -23 ], [ -13, -19 ] ] ]
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -29, 7 ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - buildBaseComponent:
+            - greenhouse1
+          # - deleteNanites:
+          #   - nanites_Mission4Task14
+          - delay:
+            - 6
+            - showAlert:
+              - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - playSound:
+              - musicSuccessShort
+            - playSound:
+              - TM4V35_MANNY
+            - playSound:
+              - PerryIDidIt
+            - playSound:
+              - TM4V37_MANNY
+            - scenarioSuccess:
+
+        scenarioEnded4_14:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+
+        # onScenarioFailed4_14:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task14
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 14"
+      content: >
+        Placeholder

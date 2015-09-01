@@ -66,8 +66,6 @@ properties:
   - setGridAxes:
     - 14
     - 0
-  - setBlocklyContext:
-    - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario2a.xml
@@ -103,7 +101,10 @@ properties:
     - roverTracks2
     - visible
     - false
-
+  - setCinematicCameraView:
+    - [ 13, -10, -15 ]
+  - setThirdPersonStartPose:
+    - [ 13, -10, -15 ]
 
 children:
   triggerManager:
@@ -126,10 +127,6 @@ children:
             - blocklyButton
             - enabled
             - false
-          - setCinematicCameraView:
-            - [ 16.316, 65, -15 ]
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
 
         playStartingVO_2a:
           triggerCondition:
@@ -139,6 +136,17 @@ children:
           actions:
           - playSound:
             - L2VO4_Control
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 16
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         failOnMove_2a:
           group: successOrFailure
@@ -172,7 +180,17 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 20
+              - 30
           actions:
           - playSound:
             - ALVO18_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 1"
+      content: >
+        It appears that one of your Mini Rovers has gone astray!
+        <br><br> You will need to track it down. In order to do that, you first 
+        need to plot a line that matches the direction of the Mini 
+        Rover’s tracks, and then build a program to follow that line. 

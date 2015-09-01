@@ -22,13 +22,9 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect your triangle across the Y axis."
+    - "Reflect the unit triangle across the Y axis to get a new triangle."
 
   # Blockly
-  - setProperty:
-    - rover2
-    - blockly_xml
-    - <xml><block type="draw_triangle" movable="false" deletable="false" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" id="16" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="43" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" id="44" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="42" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">6</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" id="28" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" id="40" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-6</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="41" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block></xml>
   - setBlocklyContext:
     - rover2
   - loadToolbox:
@@ -49,22 +45,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
 
   # Perry
   - setProperty:
@@ -78,21 +58,24 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 12
+    - 25
   - setProperty:
     - rover2
     - lowRam
     - 5
   - selectRover:
     - rover2
+  - addToGrid:
+    - rover2
+    - [-27, 19]
 
   # Rosie disabled
   - setProperty:
@@ -115,108 +98,94 @@ properties:
     - opacity
     - 0
 
-  - setProperty:
-    - roverTracks2
-    - visible
-    - true
+  - cancelCallOut:
 
+  - clearTriangle:
 
-  # Solar panel construction
-  
   - drawTriangle:
     - [ 0, 0 ]
-    - [ 0, 6 ]
-    - [ 6, 0 ]
+    - [ 0, 1 ]
+    - [ -1, 0 ]
+
+  # Solar panel construction
 
   - addToGrid:
     - solarPanel1
-    - [ -27, 22 ]
-
-  - addToGrid:
-    - solarPanel2
-    - [ -21, 22 ]
+    - [ -23, 20 ]
 
   - setProperty:
     - solarPanel1
     - scale
-    - [1.2, 1.2, 1.2]
-  - setProperty:
+    - [.4, .4, .4]
+  - setConstructed:
     - solarPanel1
-    - rotation
-    - [0 ,0 ,1 , 90 ]
-  - setProperty:
-    - solarPanel1
-    - visible
     - true
-  - setProperty:
-    - solarPanel1
-    - built
+
+  - setConstructed:
+    - solarPanel2
     - false
 
-  - setProperty:
-    - solarPanel2
-    - scale
-    - [1.2, 1.2, 1.2]
-  - setProperty:
-    - solarPanel2
-    - visible
-    - false
-
-  - setProperty:
+  - setConstructed:
     - solarPanel3
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel4
-    - visible
     - false
 
   - setProperty:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45 ]
+
   - setProperty:
     - cargoPod2
     - isClosed
     - false
-  
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
 
-        openMissionBrief_4_4:
+        playStartingVO_4_4:
           triggerCondition:
           - and:
-            - onScenarioStart:
             - doOnce:
+            - onScenarioStart:
           actions:
+          - playSound:
+            - TM4V14_MANNY
+          - playSound:
+            - TM4V15_MC
           - delay:
             - 9
             - openMissionBrief:
-
-        setStartPosition_4_4:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 19 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 25 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -30, 19 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -24, 19 ]
 
         succeedOnTriangle_4_4:
           group: successOrFailure
@@ -224,26 +193,22 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ 0, 0 ], [ 0, 6 ], [ 6, 0 ] ]
+            - [ [ 0, 0 ], [ 0, 1 ], [ -1, 0 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - buildBaseComponent:
-            - solarPanel2
-          - deleteNanites:
-            - nanites_Mission4Task4
-          - delay:
-            - 6
-            - showAlert:
-              - "I created the correct triangle!"
-            - callMethod:
-              - rover2
-              - stopExecution
-            - scenarioSuccess:
-            - playSound:
-              - musicSuccessShort
-            - playSound:
-              - PerryIDidIt
+          # - deleteNanites:
+          #   - nanites_Mission4Task4
+          - showAlert:
+            - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          - playSound:
+            - TM4V16_MANNY
+          - scenarioSuccess:
 
         scenarioEnded4_4:
           triggerCondition:
@@ -251,23 +216,26 @@ children:
             - onScenarioSucceeded:
             - onScenarioFailed:
           actions:
-          - clearTriangle:
           - setProperty:
             - rover2
             - surveyArray
             - []
-          - deleteNanites:
-            - nanites_Mission4Task4
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+          # - deleteNanites:
+          #   - nanites_Mission4Task4
 
   brief:
     extends: ../missionBrief.vwf
     properties:
       title: "Mission 4, Task 4"
       content: >
-        Excellent! That triangle is perfect for a solar panel! 
-        Let's add some more so we can generate more power. For the next triangle, 
-        we can reflect the last triangle so we don't have to make new vertices from 
-        scratch! <br><br>To reflect, or flip the triangle across the y axis, you multiply 
-        the x values of the vertices by -1. You can do the same across 
-        the x axis by multiplying the y values by -1. Try multiplying the x values 
-        to reflect the triangle across the y axis.
+        Excellent! You have your first solar panel built!
+        <br><br>Let's add some more solar panels so that we don't run out of 
+        power. One easy way to do that is to reflect the triangle that we just
+        drew across the X or Y axes in order to get a new triangle that is the
+        same size.
+        <br><br>To start, let's try simply reflecting the unit triangle that is
+        built in to the DrawTriangle procedure across the Y axis. 

@@ -90,6 +90,8 @@ this.setScenario = function( path ) {
         if ( scenario ) {
             this.activeScenarioPath = path;
             this.clearWatchList();
+            this.removeCalloutTile();
+            this.hideSchematicTriangle();
             // TODO: pass the scenario, not the name.  Or else just send the 
             //  event without looking the scenario itself up.  Or assert that 
             //  the scenario exists.  Or something.
@@ -191,6 +193,12 @@ this.executeBlock = function ( block, action ) {
     var args = action[ 2 ];
     var node = this.findByID( this, nodeID );
 
+    if ( methodName === 'moveRadialAbsolute' ) {
+        var currentArray = node.surveyArray.slice( 0 );
+        currentArray.push( args );
+        node.surveyArray = currentArray;
+    }
+
     if ( node ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
@@ -206,21 +214,26 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         var scenarioNanites = {
             "extends": "http://vwf.example.com/node3.vwf"
         }
-        this.naniteSystems.children.create( "nanites_" + this.activeScenarioPath, scenarioNanites );
+        // this.naniteSystems.children.create( "nanites_" + this.activeScenarioPath, scenarioNanites );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
-        var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
         if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
             || currentArray[ 0 ][ 1 ] !== currentArray[ currentArray.length - 1 ][ 1 ] ) {
           this.blocklyFailedPolygon( 'rover2', currentArray );
         }
         this.blocklyCompletedPolygon( 'rover2', currentArray );
+        nodeObject.allSurveys.push( currentArray );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
-        var currentPosition = nodeObject.positionSensorValue;
+        //var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
-        currentArray.push( currentPosition );
-        nodeObject.surveyArray = currentArray;
-        this.createNaniteSystem( currentArray.slice(), nodeObject );
+        //currentArray.push( currentPosition );
+        //nodeObject.surveyArray = currentArray;
+        // this.createNaniteSystem( currentArray.slice(), nodeObject );
+    } else {
+        var currentArray = nodeObject.allSurveys.slice( 0 );
+        this.blocklyCompletedSurvey( 'rover2', currentArray );
+        nodeObject.allSurveys = [];
+        nodeObject.surveyArray = [];
     }
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
@@ -240,12 +253,21 @@ this.resetBlocklyBlocks = function( nodeID ) {
 
         Blockly.mainWorkspace.fireChangeEvent();
 
+        var xml = Blockly.Xml.textToDom( defaultXML );
+        
+        var blocks = xml.getElementsByTagName( "block" );
+        var count = 0;
+
+        if ( blocks ) {
+            count = blocks.length;
+        }
+
         if ( nodeID === this.player.rover.id ) {
-            this.player.rover.calcRam();
+            this.player.rover.ram = this.player.rover.ramMax - count;
         } else if ( nodeID === this.player.rover2.id ) {
-            this.player.rover2.calcRam();
+            this.player.rover2.ram = this.player.rover2.ramMax - count;
         } else if ( nodeID === this.player.rover3.id ) {
-            this.player.rover3.calcRam();
+            this.player.rover3.ram = this.player.rover3.ramMax - count;
         }
     }
     
@@ -355,7 +377,7 @@ this.resetView = function() {
 this.cameraMounted = function( mountName ) {
     var activeNode;
     activeNode = this.findByID( this, this.blockly_activeNodeID );
-    if ( Boolean( activeNode.facingArrow ) ) {
+    if ( activeNode && activeNode.facingArrow ) {
         if ( mountName === "topDown" ) {
             activeNode.facingArrow.visible = true;
         } else {
@@ -365,7 +387,7 @@ this.cameraMounted = function( mountName ) {
 }
 
 this.targetSwitched = function( oldTarget, newTarget ) {
-    if ( Boolean( oldTarget.facingArrow ) ) {
+    if ( oldTarget && oldTarget.facingArrow ) {
         oldTarget.facingArrow.visible = false;
     }
 }
@@ -464,9 +486,15 @@ this.selectBlocklyNode = function( nodeID ) {
     }
 }
 
-this.setBlocklyContext = function( nodeID ) {
-    this.enableBlocklyTabs( [ nodeID ] );
-    this.future( 0.25 ).selectBlocklyNode( nodeID );
+this.setBlocklyContext = function( nodeNames ) {
+    var i, nodeIDs, node;
+    nodeIDs = [];
+    for ( i = 0; i < nodeNames.length; i++ ) {
+        node = this.find( "//" + nodeNames[ i ] )[ 0 ];
+        nodeIDs.push( node.id );
+    }
+    this.enableBlocklyTabs( nodeIDs );
+    this.future( 0.25 ).selectBlocklyNode( nodeIDs[ 0 ] );
 }
 
 this.clearBlocklyContext = function() {

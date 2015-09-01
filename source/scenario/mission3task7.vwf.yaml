@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Use the navigate procedure to go to [-13,-9]."
+    - "Use the navigate procedure to go to (-13,-9)."
 
   # sounds/video
   - playSound:
@@ -64,15 +64,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 40
+    - 20
   - setProperty:
     - rover
     - batteryMax
-    - 40
+    - 20
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 70
+    - 62
 
   # Perry, Rosie disabled
   - setProperty:
@@ -119,6 +119,21 @@ properties:
     - roverTracks2
     - visible
     - true
+
+  # turning supplies and minirover invisible
+
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
 
 children:
   triggerManager:
@@ -183,8 +198,8 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "Test program completed!"
-          - playSound:
-            - musicSuccessShort
+          # - playSound:
+          #   - musicSuccessShort
 
   brief:
     extends: ../missionBrief.vwf

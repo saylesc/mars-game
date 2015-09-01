@@ -73,6 +73,7 @@ properties:
     - true
   - setBlocklyContext:
     - rover
+    - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario3a.xml
@@ -204,3 +205,12 @@ children:
           actions:
           - playSound:
             - ALVO28_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 7"
+      content: >
+        Path plotted! 
+        <br><br>Time to build a program that will follow it. We’ll work
+        one step at a time…

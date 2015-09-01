@@ -116,6 +116,17 @@ children:
           actions:
           - playSound:
             - L1VO14_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 12
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         succeedOnSuccess_1f:
           group: successOrFailure
@@ -132,8 +143,8 @@ children:
               - 180
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "Turning motors are good to go!"
+          # - showAlert:
+          #   - "Turning motors are good to go!"
           - playSound:
             - musicSuccessShort
           - playSound:
@@ -144,7 +155,19 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 18
+              - 30
           actions:
           - playSound:
             - ALVO35_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 1, Task 6"
+      content: >
+        You have calibrated your motors and picked up a spare battery!  
+        <br><br>Your next task is to turn back the way you came, and then
+        move back to the ramp where you started. 
+        <br><br>Let's start with the turn. To do that, drag the blocks from your 
+        last program down to the trashcan and then make a new program that will 
+        turn you around.

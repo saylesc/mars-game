@@ -76,6 +76,7 @@ properties:
     - true
   - setBlocklyContext:
     - rover
+    - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario3c.xml
@@ -93,6 +94,7 @@ properties:
     - roverTracks2
     - visible
     - false
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -125,6 +127,17 @@ children:
           actions:
           - playSound:
             - L3VO5_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 6
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         highlightEndTile_2_9:
           triggerCondition:
@@ -175,7 +188,7 @@ children:
           - stopSound:
             - CTVO3
 
-        playHint1_3c:
+        playHint_2_9_tricky:
           triggerCondition:
           - and:
             - not:
@@ -183,6 +196,9 @@ children:
                 - thisOneIsTrickyHint
             - delay:
               - 15
+            - not:
+              - isBlocklyExecuting:
+                - rover
             - or:
               - hasHeading:
                 - rover
@@ -201,7 +217,7 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - [ 6, 38 ]
+              - [ 7, 34 ]
           actions:
           - playSound:
             - CTVO3
@@ -222,3 +238,12 @@ children:
             - ALVO38_Rover
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 9"
+      content: >
+        Path plotted! 
+        <br><br>Time to change your movement program accordingly…
+

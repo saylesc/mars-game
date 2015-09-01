@@ -75,6 +75,7 @@ properties:
     - true
   - setBlocklyContext:
     - rover
+    - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario2f.xml
@@ -177,7 +178,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 15
+              - 25
           actions:
           - playSound:
             - L3VO2_Rover_H
@@ -187,7 +188,16 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 30
+              - 40
           actions:
           - playSound:
             - L3VO2_Rover_H2
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 6"
+      content: >
+        Path plotted! 
+        <br><br>Time to build a program that will follow it. We’ll work
+        one step at a time…

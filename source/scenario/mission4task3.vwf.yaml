@@ -21,13 +21,9 @@ properties:
 
   # objective
   - setObjective:
-    - "Dilate your triangle so that it is twice as big."
+    - "Move to (-3,0) and initiate construction."
 
   # blockly
-  - setProperty:
-    - rover2
-    - blockly_xml
-    - <xml><block type="draw_triangle" movable="false" deletable="false" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">3</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-3</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block></xml>
   - setBlocklyContext:
     - rover2
   - loadToolbox:
@@ -48,26 +44,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - callMethod:
-    - rover
-    - setHeading
-    - 0
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
 
   #Perry
   - setProperty:
@@ -77,15 +53,16 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 14
+    - 7
+
   - setProperty:
     - rover2
     - lowRam
@@ -105,6 +82,8 @@ properties:
     - 19
     - -24
 
+  - clearTriangle:
+
   - setProperty:
     - blocklyLine
     - visible
@@ -117,55 +96,62 @@ properties:
 
   # Solar panel construction
 
-  - drawTriangle:
-    - [ 0, 0 ]
-    - [ 0, 6 ]
-    - [ -6, 0 ]
-
   - addToGrid:
     - solarPanel1
-    - [ -27, 22 ]
+    - [ -23, 20 ]
   - setProperty:
     - solarPanel1
     - scale
-    - [1.2, 1.2, 1.2]
-  - setProperty:
+    - [.4, .4, .4]
+  - setConstructed:
     - solarPanel1
-    - rotation
-    - [0 ,0 ,1 , 90 ]
-  - setProperty:
-    - solarPanel1
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel2
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel3
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel4
-    - visible
     - false    
 
   - setProperty:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45]
+
   - setProperty:
     - cargoPod2
     - isClosed
     - false
 
   - setProperty:
-    - roverTracks2
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+
+  - setProperty:
+    - supplies_1
     - visible
-    - true
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
 
 children:
   triggerManager:
@@ -194,47 +180,79 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 22 ]
+                - [ -24, 21 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -27, 19 ]
+                - [ -26, 19 ]
           actions:
-            - addToGrid:
-              - rover2
-              - [ -24, 19 ]
+          - addToGrid:
+            - rover2
+            - [ -24, 19 ]
 
-        succeedOnTriangle_4_3:
+        highlightEndTile_4_3:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -3, 0 ]
+
+        playStartingVO_4_3:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V12_MC
+          - playSound:
+            - TM4V13_MANNY
+
+        failOnMissingBlock_4_3:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -27, 19 ]
+            - isBlockMissing:
+              - init_nano_construction
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use the construction block to initiate construction."
+          - playSound:
+            - FCVO2_Rover
+
+        succeedOnMove_4_3:
           group: successOrFailure
           priority: 0
           triggerCondition:
-          - onBlocklyPolygon:
-            - rover2
-            - [ [ 0, 0 ], [ 0, 6 ], [ -6, 0 ] ]
+          - and:
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -27, 19 ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
             - solarPanel1
-          - deleteNanites:
-            - nanites_Mission4Task3
+          # - deleteNanites:
+          #   - nanites_Mission4Task2
           - delay:
             - 6
             - showAlert:
-              - "I created the correct triangle!"
+              - "I constructed the solar panel!"
             - callMethod:
               - rover2
               - stopExecution
             - clearBlockly:
             - scenarioSuccess:
-            - playSound:
-              - musicSuccessShort
-            - playSound:
-              - PerryIDidIt
-            - playSound:
-              - M4VO28_MC
-            - playSound:
-              - PerryNotDoneGroan
 
         scenarioEnded4_3:
           triggerCondition:
@@ -242,21 +260,23 @@ children:
             - onScenarioSucceeded:
             - onScenarioFailed:
           actions:
-          - clearTriangle:
           - setProperty:
             - rover2
             - surveyArray
             - []
-          - deleteNanites:
-            - nanites_Mission4Task3
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+          # - deleteNanites:
+          #   - nanites_Mission4Task3
 
   brief:
     extends: ../missionBrief.vwf
     properties:
       title: "Mission 4, Task 3"
       content: >
-        Good work! Now that you’ve placed the triangle in 
-        a good spot, we should dilate it to make it bigger. <br><br>To dilate, or change the 
-        size of the triangle, you can multiply the x and y values of the vertices by 
-        a number to make them further apart. Let's make the triangle 2 times the "
-        size it was. Try multiplying your vertices to make the triangle twice as large.
+        Good work! 
+        <br><br>Now that you have your triangle placed properly, you need to
+        move Peregrine to the designated "safe spot" and then use the Init
+        Nano Construction block to make the construction start.
