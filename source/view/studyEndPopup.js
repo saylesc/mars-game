@@ -38,7 +38,7 @@ function showStudyEndPopup() {
     console.log(playerHashedName);
     var vwfSession = pathArray[ pathArray.length-2 ];
 
-    var url = 'https://www.surveymonkey.com/s/26S7273?currentVersion='+version+'&hashedID='+playerHashedName+'&sessionID='+vwfSession+'';
+    var url = 'https://www.surveymonkey.com/r/QHYHTW5?currentVersion='+version+'&hashedID='+playerHashedName+'&sessionID='+vwfSession+'';
     endPopupDOM.style.display = "block";
     endPopupContent.innerHTML = '<p>Thank you for playing our game! Please note you can return and take the survey below at any time.</p>' + 
     '<p><a href="'+url+'" target="_blank">COMPLETE SURVEY NOW!</a></p>';
