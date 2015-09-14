@@ -91,8 +91,8 @@ methods:
   getWatchListNodes:
   addAxisOffset:
   removeAxisOffset:
-  createNaniteSystem:
-  deleteNaniteSystem:
+  createNanites:
+  deleteNanites:
   switchToHelicamView:
   calloutTile:
   removeCalloutTile:
@@ -795,6 +795,21 @@ children:
           visible: false
         events:
           lineGraphed:
+  nanites:
+    extends: http://vwf.example.com/graphtool/graph.vwf
+    properties:
+      graphScale: 1
+      gridInterval: 128
+      gridLineInterval: 256
+      gridLength: 256
+      xAxisVisible: false
+      yAxisVisible: false
+      zAxisVisible: false
+      gridVisible: false
+      graphVisible: false
+      axisOpacity: 1
+      gridOpacity: 1
+      renderTop: false
   graph:
     extends: http://vwf.example.com/node3.vwf
     implements: http://vwf.example.com/blockly/controller.vwf

@@ -211,10 +211,6 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
     var nodeObject = this.findByID( this, blockNode );
     if ( blockName === 'startTriangle' && blockNode !== undefined ) {
         nodeObject.surveyArray = [];
-        var scenarioNanites = {
-            "extends": "http://vwf.example.com/node3.vwf"
-        }
-        // this.naniteSystems.children.create( "nanites_" + this.activeScenarioPath, scenarioNanites );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
         var currentArray = nodeObject.surveyArray.slice( 0 );
         if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
@@ -228,7 +224,7 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         var currentArray = nodeObject.surveyArray.slice( 0 );
         //currentArray.push( currentPosition );
         //nodeObject.surveyArray = currentArray;
-        // this.createNaniteSystem( currentArray.slice(), nodeObject );
+        this.createNanites( currentArray.slice(), nodeObject );
     } else {
         var currentArray = nodeObject.allSurveys.slice( 0 );
         this.blocklyCompletedSurvey( 'rover2', currentArray );
@@ -271,33 +267,33 @@ this.resetBlocklyBlocks = function( nodeID ) {
     
 }
 
-this.createNaniteSystem = function( vertices ) {
-    var naniteDef, scenarioNanites, index, vertex, callback, lastEdge, rover;
-    scenarioNanites = this.naniteSystems[ "nanites_" + this.activeScenarioPath ];
+this.createNanites = function( vertices ) {
+    var naniteDef, index, vertex, callback, lastEdge, rover;
     index = vertices.length - 1;
     vertex = vertices[ index ].slice();
     vertex = this.addAxisOffset( vertex );
     vertex = this.tileMap.getWorldCoordFromTile( vertex[ 0 ], vertex[ 1 ] );
     vertex.push( this.environment.heightmap.getHeight( vertex[ 0 ], vertex[ 1 ] ) );
-    // create nanite particles on first 3 points
     if ( index < 3 ) {
         naniteDef = {
-            "extends": "source/naniteParticle.vwf",
+            "extends": "http://vwf.example.com/graphtool/graphpointline.vwf",
             "properties": {
-                "start": vertex,
-                "stop": vertex,
-                "listenerID$": undefined
+                "points": [ vertex ],
+                "color": [ 255, 255, 255 ],
+                "opacity": 1,
+                "lineThickness": 0.2,
+                "renderTop": false
             }
         }
         callback = function( edge ) {
             var rover = this.find( "//rover2" )[ 0 ];
             rover.transformChanged = edge.events.add(
                 function( transform ) {
-                    edge.stop = [
+                    edge.addPoint(
                         transform[ 12 ],
                         transform[ 13 ],
                         transform[ 14 ]
-                    ];
+                    );
                 },
                 edge,
                 function( id ) {
@@ -305,19 +301,19 @@ this.createNaniteSystem = function( vertices ) {
                 }
             );
         };
-        scenarioNanites.children.create( "edge_" + index, naniteDef, callback );
+        this.nanites.children.create( "edge_" + index, naniteDef, callback );
     }
-    lastEdge = scenarioNanites[ "edge_" + ( index - 1 ) ];
+    lastEdge = this.nanites[ "edge_" + ( index - 1 ) ];
     if ( lastEdge ) {
         rover = this.find( "//rover2" )[ 0 ];
         rover.transformChanged = lastEdge.events.remove( lastEdge.listenerID$ );
     }
 }
 
-this.deleteNaniteSystem = function( systemName ) {
+this.deleteNanites = function( systemName ) {
     var system = this.naniteSystems[ systemName ];
     if ( system ) {
-        this.naniteSystems.children.delete( system );
+        this.nanites.children.delete( system );
     } else {
         this.logger.warnx( "Nanite system (" + systemName + ") not found!" );
     }
