@@ -76,7 +76,7 @@ this.setApplicationState = function( state ) {
 
 this.newGame = function() {
     this.applicationState = "playing";
-    this.activeScenarioPath = "introCinematic";
+    this.activeScenarioPath = "Mission4Task2";
 }
 
 this.continueGame = function( scenario ) {
@@ -268,50 +268,85 @@ this.resetBlocklyBlocks = function( nodeID ) {
 }
 
 this.createNanites = function( vertices ) {
-    var naniteDef, index, vertex, callback, lastEdge, rover;
+    var scenarioNanites, naniteDef, index, vertex, callback, rover, followFunction;
     index = vertices.length - 1;
     vertex = vertices[ index ].slice();
     vertex = this.addAxisOffset( vertex );
     vertex = this.tileMap.getWorldCoordFromTile( vertex[ 0 ], vertex[ 1 ] );
     vertex.push( this.environment.heightmap.getHeight( vertex[ 0 ], vertex[ 1 ] ) );
-    if ( index < 3 ) {
+    scenarioNanites = this.nanites[ "nanites_" + this.activeScenarioPath ];
+    followFunction = function( transform ) {
+        var np = this.points.slice();
+        np[ np.length - 1 ] = [
+            transform[ 12 ],
+            transform[ 13 ],
+            transform[ 14 ]
+        ];
+        this.points = np;
+    };
+    if ( !scenarioNanites ) {
         naniteDef = {
             "extends": "http://vwf.example.com/graphtool/graphpointline.vwf",
             "properties": {
-                "points": [ vertex ],
+                "points": [ vertex, vertex ],
                 "color": [ 255, 255, 255 ],
                 "opacity": 1,
                 "lineThickness": 0.2,
-                "renderTop": false
+                "isLoop": false,
+                "renderTop": false,
+                "listenerID$": undefined
             }
         }
-        callback = function( edge ) {
-            var rover = this.find( "//rover2" )[ 0 ];
-            rover.transformChanged = edge.events.add(
-                function( transform ) {
-                    edge.addPoint(
-                        transform[ 12 ],
-                        transform[ 13 ],
-                        transform[ 14 ]
-                    );
-                },
-                edge,
+        callback = function( nanites ) {
+            var rover2 = this.find( "//rover2" )[ 0 ];
+            rover2.transformChanged = nanites.events.add(
+                followFunction.bind( nanites ),
+                nanites,
                 function( id ) {
-                    edge.listenerID$ = id;
+                    nanites.listenerID$ = id;
                 }
             );
         };
-        this.nanites.children.create( "edge_" + index, naniteDef, callback );
+        this.nanites.children.create( "nanites_" + this.activeScenarioPath, naniteDef, callback );
     }
-    lastEdge = this.nanites[ "edge_" + ( index - 1 ) ];
-    if ( lastEdge ) {
+    if ( index > 0 ) {
         rover = this.find( "//rover2" )[ 0 ];
-        rover.transformChanged = lastEdge.events.remove( lastEdge.listenerID$ );
+        rover.transformChanged = scenarioNanites.events.remove( scenarioNanites.listenerID$ );
+        var points = scenarioNanites.points.slice();
+        var pi1 = points.length - 2;
+        var pi2 = points.length - 1;
+        var distx, disty, distz, dist;
+        distx = points[ pi2 ][ 0 ] - points[ pi1 ][ 0 ];
+        disty = points[ pi2 ][ 1 ] - points[ pi1 ][ 1 ];
+        distz = points[ pi2 ][ 2 ] - points[ pi1 ][ 2 ];
+        dist = Math.sqrt( Math.pow( distx, 2 ) + Math.pow( disty, 2 ) + Math.pow( distz, 2 ) );
+        var pcount = Math.floor( dist / 0.2 );
+        for ( var i = 1; i < pcount; i++ ) {
+            points.splice( points.length - 1, 0,
+                [
+                    points[ pi1 ][ 0 ] + ( distx / pcount ) * i,
+                    points[ pi1 ][ 1 ] + ( disty / pcount ) * i,
+                    points[ pi1 ][ 2 ] + ( distz / pcount ) * i
+                ]
+            );
+        }
+        scenarioNanites.points = points;
+        if ( index < 3 ) {
+            rover.transformChanged = scenarioNanites.events.add(
+                followFunction.bind( scenarioNanites ),
+                scenarioNanites,
+                function( id ) {
+                    scenarioNanites.listenerID$ = id;
+                }
+            );
+        } else {
+            scenarioNanites.isLoop = true;
+        }
     }
 }
 
 this.deleteNanites = function( systemName ) {
-    var system = this.naniteSystems[ systemName ];
+    var system = this.nanites[ systemName ];
     if ( system ) {
         this.nanites.children.delete( system );
     } else {

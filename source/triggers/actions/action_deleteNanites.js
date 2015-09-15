@@ -33,7 +33,7 @@ this.onGenerated = function( params, generator, payload ) {
 this.executeAction = function() {
     var names = this.systemNames;
     for ( var i = 0; i < names.length; i++ ) {
-        this.scene.deleteNaniteSystem( names[ i ] );
+        this.scene.deleteNanites( names[ i ] );
     }
 }
 

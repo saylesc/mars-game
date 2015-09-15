@@ -206,8 +206,8 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          # - deleteNanites:
-          #   - nanites_Mission4Task4
+          - deleteNanites:
+            - nanites_Mission4Task4
           # - showAlert:
           #   - "I created the correct triangle!"
           - callMethod:
@@ -234,8 +234,8 @@ children:
             - rover2
             - allSurveys
             - []
-          # - deleteNanites:
-          #   - nanites_Mission4Task4
+          - deleteNanites:
+            - nanites_Mission4Task4
 
   brief:
     extends: ../missionBrief.vwf

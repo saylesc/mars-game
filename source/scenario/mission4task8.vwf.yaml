@@ -214,6 +214,8 @@ children:
             - musicSuccessShort
           - clearBlockly:
           - scenarioSuccess:
+          - deleteNanites:
+            - nanites_Mission4Task8
 
         scenarioEnded4_8:
           triggerCondition:
@@ -230,12 +232,12 @@ children:
             - allSurveys
             - []
 
-        # onScenarioFailed4_8:
-        #   triggerCondition:
-        #   - onScenarioFailed:
-        #   actions:
-        #   - deleteNanites:
-        #     - nanites_Mission4Task8
+        onScenarioFailed4_8:
+          triggerCondition:
+          - onScenarioFailed:
+          actions:
+          - deleteNanites:
+            - nanites_Mission4Task8
 
   brief:
     extends: ../missionBrief.vwf
