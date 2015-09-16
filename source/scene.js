@@ -273,14 +273,14 @@ this.createNanites = function( vertices ) {
     vertex = vertices[ index ].slice();
     vertex = this.addAxisOffset( vertex );
     vertex = this.tileMap.getWorldCoordFromTile( vertex[ 0 ], vertex[ 1 ] );
-    vertex.push( this.environment.heightmap.getHeight( vertex[ 0 ], vertex[ 1 ] ) );
+    vertex.push( this.environment.heightmap.getHeight( vertex[ 0 ], vertex[ 1 ] ) + 1 );
     scenarioNanites = this.nanites[ "nanites_" + this.activeScenarioPath ];
     followFunction = function( transform ) {
         var np = this.points.slice();
         np[ np.length - 1 ] = [
             transform[ 12 ],
             transform[ 13 ],
-            transform[ 14 ]
+            transform[ 14 ] + 1
         ];
         this.points = np;
     };
@@ -295,6 +295,11 @@ this.createNanites = function( vertices ) {
                 "isLoop": false,
                 "renderTop": false,
                 "listenerID$": undefined
+            },
+            "children": {
+                "material": {
+                    "extends": "source/naniteMaterial.vwf"
+                }
             }
         }
         callback = function( nanites ) {
