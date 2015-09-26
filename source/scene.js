@@ -295,14 +295,16 @@ this.createNanites = function( vertices ) {
                 "isLoop": false,
                 "renderTop": false,
                 "listenerID$": undefined
-            },
-            "children": {
-                "material": {
-                    "extends": "source/naniteMaterial.vwf"
-                }
             }
         }
         callback = function( nanites ) {
+            var matDef = {
+                "extends": "source/shaders/naniteShader.vwf",
+                "properties": {
+                    "color": 0xAAAAEE
+                }
+            }
+            nanites.children.create( "material", matDef );
             var rover2 = this.find( "//rover2" )[ 0 ];
             rover2.transformChanged = nanites.events.add(
                 followFunction.bind( nanites ),

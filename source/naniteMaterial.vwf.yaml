@@ -1,5 +1,0 @@
----
-extends: shaders/scaledTextureShader.vwf
-properties:
-  map: { "url": "assets/3d/Start/stars.jpg", "wrapTexture": true }
-  scale: 2
