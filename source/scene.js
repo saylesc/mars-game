@@ -301,7 +301,9 @@ this.createNanites = function( vertices ) {
             var matDef = {
                 "extends": "source/shaders/naniteShader.vwf",
                 "properties": {
-                    "color": 0xAAAAEE
+                    "diffuseMap": { "url": "assets/images/nanites_d.png", "wrapTexture": true },
+                    "normalMap": { "url": "assets/images/nanites_n.png", "wrapTexture": true },
+                    "specularMap": { "url": "assets/images/nanites_s.png", "wrapTexture": true }
                 }
             }
             nanites.children.create( "material", matDef );
