@@ -7779,18 +7779,24 @@ Blockly.Blocks['procedures_callnoreturn'] = {
       currentBlocklyErrors[ this.id ] = false;
       return;
     }
+
+    var foundError = false;
     
     for (var i = 0; i < this.arguments_.length; i++) {
       var argument = Blockly.JavaScript.valueToCode(block, 'ARG'+i,
       Blockly.JavaScript.ORDER_ATOMIC) || '?';
 
       if ( argument === '?' ) {
-        this.setWarningText('You must attach parameter blocks.');
-        currentBlocklyErrors[ this.id ] = true;
-      } else {
-        currentBlocklyErrors[ this.id ] = false;
-        this.setWarningText(null);
-      }
+        foundError = true; 
+      } 
+    }
+
+    if ( foundError === true ) {
+      currentBlocklyErrors[ this.id ] = true;
+      this.setWarningText('You must attach parameter blocks.');
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
     }
 
   },
