@@ -319,6 +319,8 @@ children:
       tileSize: 3
   airDust:
     includes: source/dustAir.vwf
+    properties:
+      translation: [ -60, 25, 15 ]
   smoke1:
     extends: source/smokeParticle.vwf
     properties:

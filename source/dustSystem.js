@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.initialize = function() {
-    this.future( 0 ).setUpEvents();
+    // this.future( 0 ).setUpEvents();
 }
 
 this.setUpEvents = function() {
